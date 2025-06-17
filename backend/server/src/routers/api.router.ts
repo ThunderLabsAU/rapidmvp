@@ -1,7 +1,7 @@
 import * as trpcExpress from "@trpc/server/adapters/express";
 import { Router } from "express";
 import { createLogger } from "../util/log/logger";
-import { adminApiRouter } from "./admin-api.router";
+import { adminApiRouter } from "./admin/admin-api.router";
 
 const logger = createLogger("api");
 

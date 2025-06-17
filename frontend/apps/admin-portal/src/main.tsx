@@ -1,10 +1,14 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createRouter, RouterProvider } from "@tanstack/react-router";
-import { StrictMode } from "react";
+import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { ApiProvider } from "./api/api-provider.tsx";
-import { config } from "./config.ts";
 import "./index.css";
+// Import the generated route tree
+import type { AdminApiRouter } from "@repo/server/api";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { createTRPCClient, httpBatchLink } from "@trpc/client";
+import superjson from "superjson";
+import { TRPCProvider } from "./api/trpc";
+import { config } from "./config";
 import { routeTree } from "./routeTree.gen";
 
 const router = createRouter({ routeTree });
@@ -24,12 +28,29 @@ const queryClient = new QueryClient({
   },
 });
 
+const App = () => {
+  const [trpcClient] = useState(() =>
+    createTRPCClient<AdminApiRouter>({
+      links: [
+        httpBatchLink({
+          url: `${config.server.baseUrl}/api/admin`,
+          transformer: superjson,
+        }),
+      ],
+    })
+  );
+
+  return (
+    <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
+      <RouterProvider router={router} />
+    </TRPCProvider>
+  );
+};
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ApiProvider baseUrl={`${config.server.baseUrl}/api/admin`}>
-        <RouterProvider router={router} />
-      </ApiProvider>
+      <App />
     </QueryClientProvider>
   </StrictMode>
 );
