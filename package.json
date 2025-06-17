@@ -1,0 +1,23 @@
+{
+  "name": "rapidmvp",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "npm@11.4.2",
+  "scripts": {
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "dev": "turbo dev"
+  },
+  "workspaces": [
+    "backend/*",
+    "frontend/apps/*",
+    "frontend/shared/*"
+  ],
+  "devDependencies": {
+    "eslint": "^9.29.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.4.1",
+    "prettier": "^3.5.3",
+    "turbo": "^2.5.4"
+  }
+}
