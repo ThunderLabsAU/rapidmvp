@@ -19,5 +19,8 @@
     "eslint-plugin-prettier": "^5.4.1",
     "prettier": "^3.5.3",
     "turbo": "^2.5.4"
+  },
+  "dependencies": {
+    "@tanstack/react-table": "^8.21.3"
   }
 }
