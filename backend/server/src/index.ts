@@ -4,13 +4,14 @@ import helmet from "helmet";
 import { config } from "./config";
 import { createLogger } from "./util/log/logger";
 import { apiRouter } from "./routers/api.router";
+import { migrateDb } from "./db";
 
 const logger = createLogger("server");
 
-logger.info("Starting server");
-
 export const createServer = async (): Promise<Express> => {
-  // await migrateDb();
+  logger.info("Creating server...");
+
+  await migrateDb();
 
   const app = express();
 

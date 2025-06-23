@@ -13,6 +13,14 @@ export const config = {
   portals: {
     adminPortalUrl: required("ADMIN_PORTAL_URL"),
   },
+  db: {
+    host: required("DB_HOST"),
+    username: required("DB_USERNAME"),
+    password: required("DB_PASSWORD"),
+    database: required("DB_DATABASE"),
+    port: parseInt(process.env.DB_PORT || "5432"),
+    ssl: process.env.DB_SSL === "true",
+  },
 };
 
 if (missing.length > 0) {
