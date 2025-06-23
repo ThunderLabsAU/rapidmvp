@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useTRPC } from "./trpc";
+import { useTRPC } from "./api-provider";
 
 export const useUsers = () => {
   const trpc = useTRPC();

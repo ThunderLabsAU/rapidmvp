@@ -1,14 +1,11 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { StrictMode, useState } from "react";
-import { createRoot } from "react-dom/client";
-import "./index.css";
-// Import the generated route tree
-import type { AdminApiRouter } from "@repo/server/api";
+import { AuthProvider } from "@repo/ui-kit/providers/auth-provider";
+import { ReactQueryProvider } from "@repo/ui-kit/providers/react-query-provider";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
-import { createTRPCClient, httpBatchLink } from "@trpc/client";
-import superjson from "superjson";
-import { TRPCProvider } from "./api/trpc";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { ApiProvider } from "./api/api-provider";
 import { config } from "./config";
+import "./index.css";
 import { routeTree } from "./routeTree.gen";
 
 const router = createRouter({ routeTree });
@@ -19,38 +16,18 @@ declare module "@tanstack/react-router" {
   }
 }
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 1,
-      refetchOnWindowFocus: false,
-    },
-  },
-});
-
-const App = () => {
-  const [trpcClient] = useState(() =>
-    createTRPCClient<AdminApiRouter>({
-      links: [
-        httpBatchLink({
-          url: `${config.server.baseUrl}/api/admin`,
-          transformer: superjson,
-        }),
-      ],
-    })
-  );
-
-  return (
-    <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
-      <RouterProvider router={router} />
-    </TRPCProvider>
-  );
-};
-
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
+    <AuthProvider
+      domain={config.auth.domain}
+      clientId={config.auth.clientId}
+      audience={config.auth.audience}
+    >
+      <ReactQueryProvider>
+        <ApiProvider>
+          <RouterProvider router={router} />
+        </ApiProvider>
+      </ReactQueryProvider>
+    </AuthProvider>
   </StrictMode>
 );
