@@ -21,6 +21,15 @@ export const config = {
     port: parseInt(process.env.DB_PORT || "5432"),
     ssl: process.env.DB_SSL === "true",
   },
+  auth: {
+    audience: required("AUTH0_AUDIENCE"),
+    issuerBaseUrl: required("AUTH0_ISSUER_BASE_URL"),
+    managementApi: {
+      domain: required("AUTH0_MANAGEMENT_API_DOMAIN"),
+      clientId: required("AUTH0_MANAGEMENT_API_CLIENT_ID"),
+      clientSecret: required("AUTH0_MANAGEMENT_API_SECRET"),
+    },
+  },
 };
 
 if (missing.length > 0) {
