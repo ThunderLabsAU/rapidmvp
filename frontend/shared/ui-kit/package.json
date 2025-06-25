@@ -14,7 +14,8 @@
     "./components/*": "./src/components/*.tsx",
     "./hooks/*": "./src/hooks/*.ts",
     "./providers/*": "./src/providers/*.tsx",
-    "./types/*": "./src/types/*.ts"
+    "./types/*": "./src/types/*.ts",
+    "./util/*": "./src/util/*.ts"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.3.0",

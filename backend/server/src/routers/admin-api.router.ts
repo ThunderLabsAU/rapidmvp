@@ -2,8 +2,8 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import { CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import superjson from "superjson";
 import { getOrCreateUserByAuth0Id } from "../services/user/get-or-create-user-by-auth0-id copy";
-import { getUsers } from "../services/user/get-users";
-import { User } from "../types/user";
+import { searchUsers } from "../services/user/search-users";
+import { searchUsersRequestSchema, User } from "../types/user";
 import { getAuth0Id, getPermissions } from "../util/auth/auth.middleware";
 
 interface AdminRequestContext extends CreateExpressContextOptions {
@@ -38,6 +38,13 @@ const { router, procedure: baseProcedure } = initTRPC
 
 const procedure = baseProcedure.use(async (opts) => {
   const { ctx } = opts;
+  if (!ctx.auth0Id) {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+      message: "You must be logged in to access this resource",
+    });
+  }
+
   if (!ctx.isAdmin) {
     throw new TRPCError({
       code: "UNAUTHORIZED",
@@ -50,6 +57,8 @@ const procedure = baseProcedure.use(async (opts) => {
 
 export const adminApiRouter = router({
   users: router({
-    getAll: procedure.query(async () => getUsers()),
+    search: procedure
+      .input(searchUsersRequestSchema)
+      .query(async ({ input }) => searchUsers(input)),
   }),
 });
