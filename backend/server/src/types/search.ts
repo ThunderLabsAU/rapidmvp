@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod/v4";
 import { pageRequestSchema } from "./page";
 import { sortableSchema } from "./sort";
 

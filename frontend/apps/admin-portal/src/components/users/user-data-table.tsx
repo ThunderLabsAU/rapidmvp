@@ -1,10 +1,7 @@
-import type { Page } from "@repo/server/types/page";
-import type { SortBy } from "@repo/server/types/sort";
-import type { User } from "@repo/server/types/user";
-
+import type { Page, SortBy, User } from "@repo/server/types";
 import { DataTable } from "@repo/ui-kit/components/core/data-table";
 import { DataTableColumnHeader } from "@repo/ui-kit/components/core/data-table-column-header";
-import { Link } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 
@@ -26,27 +23,23 @@ export const UserDataTable = ({
   onSortingChange,
   onPaginationChange,
 }: Props) => {
+  const navigate = useNavigate();
+
   const columns: ColumnDef<User>[] = useMemo(
     () => [
       {
-        id: "name",
+        id: "firstName",
+        accessorKey: "firstName",
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title="First name" />
+        ),
+      },
+      {
+        id: "lastName",
         accessorKey: "lastName",
         header: ({ column }) => (
-          <DataTableColumnHeader column={column} title="Name" />
+          <DataTableColumnHeader column={column} title="Last name" />
         ),
-        cell: ({ row }) => {
-          return (
-            <div>
-              <Link
-                to="/users/$id"
-                params={{ id: row.original.id.toString() }}
-                className="hover:underline"
-              >
-                {row.original.firstName} {row.original.lastName}
-              </Link>
-            </div>
-          );
-        },
       },
       {
         id: "role",
@@ -96,6 +89,9 @@ export const UserDataTable = ({
             }))
           )
         }
+        onRowClicked={(row) => {
+          navigate({ to: "/users/$id", params: { id: row.id.toString() } });
+        }}
       />
     </>
   );

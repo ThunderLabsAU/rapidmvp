@@ -1,9 +1,18 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import { CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import superjson from "superjson";
+import { z } from "zod";
+import { createUser } from "../services/user/create-user";
 import { getOrCreateUserByAuth0Id } from "../services/user/get-or-create-user-by-auth0-id copy";
+import { getUser } from "../services/user/get-user";
 import { searchUsers } from "../services/user/search-users";
-import { searchUsersRequestSchema, User } from "../types/user";
+import { updateUser } from "../services/user/update-user";
+import {
+  createUserRequestSchema,
+  searchUsersRequestSchema,
+  updateUserRequestSchema,
+  User,
+} from "../types/user";
 import { getAuth0Id, getPermissions } from "../util/auth/auth.middleware";
 
 interface AdminRequestContext extends CreateExpressContextOptions {
@@ -57,8 +66,15 @@ const procedure = baseProcedure.use(async (opts) => {
 
 export const adminApiRouter = router({
   users: router({
+    get: procedure.input(z.number()).query(async ({ input }) => getUser(input)),
     search: procedure
       .input(searchUsersRequestSchema)
       .query(async ({ input }) => searchUsers(input)),
+    create: procedure
+      .input(createUserRequestSchema)
+      .mutation(async ({ input }) => createUser(input)),
+    update: procedure
+      .input(updateUserRequestSchema)
+      .mutation(async ({ input }) => updateUser(input)),
   }),
 });

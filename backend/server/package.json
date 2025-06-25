@@ -15,7 +15,7 @@
   },
   "exports": {
     "./api": "./src/routers/index.ts",
-    "./types/*": "./src/types/*.ts"
+    "./types": "./src/types/index.ts"
   },
   "dependencies": {
     "@trpc/server": "^11.4.1",

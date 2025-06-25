@@ -1,4 +1,4 @@
-import type { SearchUsersRequest } from "@repo/server/types/user";
+import type { SearchUsersRequest } from "@repo/server/types";
 import { Input } from "@repo/ui-kit/components/core/input";
 import { debounce } from "lodash";
 import { useCallback } from "react";
