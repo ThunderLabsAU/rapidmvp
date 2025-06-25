@@ -1,6 +1,6 @@
 import type { Page, SortBy, User } from "@repo/server/types";
-import { DataTable } from "@repo/ui-kit/components/core/data-table";
-import { DataTableColumnHeader } from "@repo/ui-kit/components/core/data-table-column-header";
+import { DataTable } from "@repo/ui-kit/components/ui/data-table";
+import { DataTableColumnHeader } from "@repo/ui-kit/components/ui/data-table-column-header";
 import { useNavigate } from "@tanstack/react-router";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";

@@ -4,14 +4,14 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@repo/ui-kit/components/core/dropdown-menu";
+} from "@repo/ui-kit/components/ui/dropdown-menu";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
-} from "@repo/ui-kit/components/core/navigation-menu";
+} from "@repo/ui-kit/components/ui/navigation-menu";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { ChevronDownIcon, SettingsIcon } from "lucide-react";
 import { UserAvatarMenu } from "./user-avatar-menu";

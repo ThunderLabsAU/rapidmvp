@@ -35,6 +35,6 @@ dist/
 
 .env
 
-backend/server/uploads/
+backend/apps/server/uploads/
 
 

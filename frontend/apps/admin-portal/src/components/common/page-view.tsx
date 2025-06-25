@@ -1,5 +1,5 @@
-import { Button } from "@repo/ui-kit/components/core/button";
-import { Spinner } from "@repo/ui-kit/components/core/spinner";
+import { Button } from "@repo/ui-kit/components/ui/button";
+import { Spinner } from "@repo/ui-kit/components/ui/spinner";
 import { cn } from "@repo/ui-kit/util/cn";
 import { Link, type LinkProps } from "@tanstack/react-router";
 import { ArrowLeftIcon } from "lucide-react";

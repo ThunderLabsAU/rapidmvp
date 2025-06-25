@@ -1,5 +1,5 @@
 import type { CreateUserRequest } from "@repo/server/types";
-import { Card, CardContent } from "@repo/ui-kit/components/core/card";
+import { Card, CardContent } from "@repo/ui-kit/components/ui/card";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useCreateUser } from "../../../api/use-user-api";
 import { PageView } from "../../../components/common/page-view";

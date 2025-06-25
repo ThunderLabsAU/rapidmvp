@@ -10,9 +10,10 @@
     "db:generate": "drizzle-kit generate"
   },
   "workspaces": [
-    "backend/*",
+    "backend/apps/*",
+    "backend/packages/*",
     "frontend/apps/*",
-    "frontend/shared/*"
+    "frontend/packages/*"
   ],
   "devDependencies": {
     "eslint": "^9.29.0",

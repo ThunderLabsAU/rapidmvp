@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { Avatar, AvatarFallback } from "@repo/ui-kit/components/core/avatar";
+import { Avatar, AvatarFallback } from "@repo/ui-kit/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,7 +7,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@repo/ui-kit/components/core/dropdown-menu";
+} from "@repo/ui-kit/components/ui/dropdown-menu";
 import { useNavigate } from "@tanstack/react-router";
 import { LogOut } from "lucide-react";
 

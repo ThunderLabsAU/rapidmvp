@@ -1,6 +1,6 @@
 import type { SearchUsersRequest } from "@repo/server/types";
-import { ButtonLink } from "@repo/ui-kit/components/core/button-link";
-import { Card, CardContent } from "@repo/ui-kit/components/core/card";
+import { ButtonLink } from "@repo/ui-kit/components/ui/button-link";
+import { Card, CardContent } from "@repo/ui-kit/components/ui/card";
 import { useSearchRequest } from "@repo/ui-kit/hooks/use-search-request";
 import { createFileRoute } from "@tanstack/react-router";
 import { useSearchUsers } from "../../api/use-user-api";

@@ -1,5 +1,5 @@
 import type { SearchUsersRequest } from "@repo/server/types";
-import { Input } from "@repo/ui-kit/components/core/input";
+import { Input } from "@repo/ui-kit/components/ui/input";
 import { debounce } from "lodash";
 import { useCallback } from "react";
 

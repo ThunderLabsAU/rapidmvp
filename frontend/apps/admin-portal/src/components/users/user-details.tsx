@@ -1,10 +1,6 @@
 import type { User } from "@repo/server/types";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-} from "@repo/ui-kit/components/core/card";
-import { Separator } from "@repo/ui-kit/components/core/separator";
+import { Card, CardContent, CardHeader } from "@repo/ui-kit/components/ui/card";
+import { Separator } from "@repo/ui-kit/components/ui/separator";
 import {
   CalendarIcon,
   LogInIcon,

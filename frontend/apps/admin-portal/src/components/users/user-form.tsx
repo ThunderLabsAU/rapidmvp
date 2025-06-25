@@ -7,9 +7,9 @@ import {
   type User,
   userRoles,
 } from "@repo/server/types";
-import { ActionButton } from "@repo/ui-kit/components/core/action-button";
-import { Button } from "@repo/ui-kit/components/core/button";
-import { ErrorMessage } from "@repo/ui-kit/components/core/error-message";
+import { ActionButton } from "@repo/ui-kit/components/ui/action-button";
+import { Button } from "@repo/ui-kit/components/ui/button";
+import { ErrorMessage } from "@repo/ui-kit/components/ui/error-message";
 import {
   Form,
   FormControl,
@@ -17,15 +17,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@repo/ui-kit/components/core/form";
-import { Input } from "@repo/ui-kit/components/core/input";
+} from "@repo/ui-kit/components/ui/form";
+import { Input } from "@repo/ui-kit/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@repo/ui-kit/components/core/select";
+} from "@repo/ui-kit/components/ui/select";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 

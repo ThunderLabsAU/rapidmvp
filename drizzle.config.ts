@@ -11,8 +11,8 @@ const username = process.env.DB_USERNAME;
 const password = process.env.DB_PASSWORD;
 
 export default defineConfig({
-  out: "./backend/server/migrations",
-  schema: "./backend/server/src/schema/index.ts",
+  out: "./backend/apps/server/migrations",
+  schema: "./backend/apps/server/src/schema/index.ts",
   dialect: "postgresql",
   dbCredentials: {
     url: `postgres://${username}:${password}@${host}:${port}/${db}`,
