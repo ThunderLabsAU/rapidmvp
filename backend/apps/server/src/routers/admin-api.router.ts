@@ -2,11 +2,20 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import { CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import superjson from "superjson";
 import { z } from "zod";
+import { createThing } from "../services/thing/create-thing";
+import { getThing } from "../services/thing/get-thing";
+import { searchThings } from "../services/thing/search-things";
+import { updateThing } from "../services/thing/update-thing";
 import { createUser } from "../services/user/create-user";
 import { getOrCreateUserByAuth0Id } from "../services/user/get-or-create-user-by-auth0-id copy";
 import { getUser } from "../services/user/get-user";
 import { searchUsers } from "../services/user/search-users";
 import { updateUser } from "../services/user/update-user";
+import {
+  createThingRequestSchema,
+  searchThingsRequestSchema,
+  updateThingRequestSchema,
+} from "../types/thing";
 import {
   createUserRequestSchema,
   searchUsersRequestSchema,
@@ -76,5 +85,19 @@ export const adminApiRouter = router({
     update: procedure
       .input(updateUserRequestSchema)
       .mutation(async ({ input }) => updateUser(input)),
+  }),
+  things: router({
+    get: procedure
+      .input(z.number())
+      .query(async ({ input }) => getThing(input)),
+    search: procedure
+      .input(searchThingsRequestSchema)
+      .query(async ({ input }) => searchThings(input)),
+    create: procedure
+      .input(createThingRequestSchema)
+      .mutation(async ({ input }) => createThing(input)),
+    update: procedure
+      .input(updateThingRequestSchema)
+      .mutation(async ({ input }) => updateThing(input)),
   }),
 });

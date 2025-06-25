@@ -7,9 +7,6 @@ import {
   type User,
   userRoles,
 } from "@repo/server/types";
-import { ActionButton } from "@repo/ui-kit/components/ui/action-button";
-import { Button } from "@repo/ui-kit/components/ui/button";
-import { ErrorMessage } from "@repo/ui-kit/components/ui/error-message";
 import {
   Form,
   FormControl,
@@ -18,6 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@repo/ui-kit/components/ui/form";
+import { FormActions } from "@repo/ui-kit/components/ui/form-actions";
 import { Input } from "@repo/ui-kit/components/ui/input";
 import {
   Select,
@@ -154,20 +152,7 @@ export function UserForm({
           )}
         />
 
-        <ErrorMessage error={error} />
-        <div className="flex gap-2">
-          <ActionButton type="submit" isBusy={isPending}>
-            Submit
-          </ActionButton>
-          <Button
-            type="button"
-            variant="outline"
-            disabled={isPending}
-            onClick={onCancel}
-          >
-            Cancel
-          </Button>
-        </div>
+        <FormActions error={error} isPending={isPending} onCancel={onCancel} />
       </form>
     </Form>
   );

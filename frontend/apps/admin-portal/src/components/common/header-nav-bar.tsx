@@ -12,16 +12,12 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@repo/ui-kit/components/ui/navigation-menu";
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState, type LinkProps } from "@tanstack/react-router";
 import { ChevronDownIcon, SettingsIcon } from "lucide-react";
 import { UserAvatarMenu } from "./user-avatar-menu";
 
 export const HeaderNavBar = () => {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { user } = useAuth0();
-
-  const isActive = (path: string, exact: boolean = false) =>
-    exact ? pathname === path : pathname.startsWith(path);
 
   return (
     <div className="fixed top-0 w-full border-b bg-white z-10 bg-brand-blue">
@@ -34,15 +30,8 @@ export const HeaderNavBar = () => {
 
           <NavigationMenu>
             <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  active={isActive("/users")}
-                  className={navigationMenuTriggerStyle()}
-                  asChild
-                >
-                  <Link to="/users">Users</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
+              <NavItem to="/users">Users</NavItem>
+              <NavItem to="/things">Things</NavItem>
             </NavigationMenuList>
           </NavigationMenu>
         </div>
@@ -71,5 +60,35 @@ export const HeaderNavBar = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const NavItem = ({
+  to,
+  children,
+  exact = false,
+}: {
+  to: LinkProps["to"];
+  children: React.ReactNode;
+  exact?: boolean;
+}) => {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isActive = (path: LinkProps["to"], exact: boolean = false) => {
+    if (exact) {
+      return pathname === path;
+    }
+    return pathname.startsWith(path?.toString() ?? "");
+  };
+
+  return (
+    <NavigationMenuItem>
+      <NavigationMenuLink
+        active={isActive(to, exact)}
+        className={navigationMenuTriggerStyle()}
+        asChild
+      >
+        <Link to={to}>{children}</Link>
+      </NavigationMenuLink>
+    </NavigationMenuItem>
   );
 };
