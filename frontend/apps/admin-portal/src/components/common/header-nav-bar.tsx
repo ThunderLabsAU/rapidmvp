@@ -10,7 +10,6 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  navigationMenuTriggerStyle,
 } from "@repo/ui-kit/components/ui/navigation-menu";
 import { cn } from "@repo/ui-kit/lib/utils";
 import { Link, useRouterState, type LinkProps } from "@tanstack/react-router";
@@ -46,14 +45,14 @@ export const HeaderNavBar = () => {
                 <DropdownMenu>
                   <DropdownMenuTrigger
                     className={
-                      navigationMenuTriggerStyle() + " flex items-center gap-2"
+                      "p-2 flex items-center rounded-md gap-2 bg-gray-900 text-white hover:bg-gray-800 hover:text-white data-[active=true]:bg-gray-700 data-[active=true]:text-white focus:bg-gray-700 focus:text-white data-[active=true]:focus:bg-gray-700 data-[active=true]:focus:text-white"
                     }
                   >
                     <SettingsIcon className="w-4 h-4" /> Settings
                     <ChevronDownIcon className="w-4 h-4" />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuItem asChild>todo</DropdownMenuItem>
+                    <DropdownMenuItem>todo</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </NavigationMenuItem>
