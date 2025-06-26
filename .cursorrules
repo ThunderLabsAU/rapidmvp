@@ -1,0 +1,278 @@
+# RapidMVP Development Guidelines
+
+This is a full stack TypeScript project using Turborepo with a monorepo structure.
+
+## Project Structure
+
+### Workspace Organization
+- **Server applications**: `backend/apps/` (e.g., `server/`)
+- **Server shared packages**: `backend/packages/`
+- **Frontend applications**: `frontend/apps/` (e.g., `admin-portal/`)
+- **Frontend shared packages**: `frontend/packages/` (e.g., `ui-kit/`)
+
+### Package Naming Convention
+- All packages use `@repo/` prefix
+- Examples: `@repo/server`, `@repo/ui-kit`, `@repo/admin-portal`
+
+## Frontend Architecture
+
+### Technology Stack
+- **Build Tool**: Vite with SWC for fast builds
+- **Framework**: React 19 with TypeScript
+- **Routing**: Tanstack Router with file-based routing
+- **State Management**: Tanstack React Query for server state
+- **Styling**: Tailwind CSS v4 with shadcn/ui components
+- **UI Components**: Custom shadcn/ui components in `@repo/ui-kit`
+- **Authentication**: Auth0 with React integration
+- **API Communication**: tRPC for type-safe API calls
+
+### Frontend Application Structure (`frontend/apps/admin-portal/`)
+```
+src/
+├── app/                    # Tanstack Router file-based routes
+│   ├── things/            # Feature-based routing
+│   ├── users/             # Feature-based routing
+│   └── index.tsx          # Root route
+├── api/                   # API integration layer
+│   ├── api-provider.tsx   # tRPC client setup
+│   ├── use-thing-api.ts   # Thing API hooks
+│   └── use-user-api.ts    # User API hooks
+├── components/            # React components
+│   ├── common/            # Shared components
+│   ├── things/            # Feature-specific components
+│   └── users/             # Feature-specific components
+├── config.ts              # Application configuration
+├── main.tsx              # Application entry point
+└── index.css             # Global styles
+```
+
+### UI Kit Package (`frontend/packages/ui-kit/`)
+- **Location**: `frontend/packages/ui-kit/`
+- **Exports**: Components, hooks, providers, types, utilities
+- **Components**: Based on Radix UI primitives with Tailwind styling
+- **Utilities**: `cn()` function for class merging, theme utilities
+
+### Import Patterns
+```typescript
+// UI Components
+import { Button } from "@repo/ui-kit/components/ui/button";
+import { cn } from "@repo/ui-kit/lib/utils";
+
+// API Types
+import type { SearchThingsRequest } from "@repo/server/types";
+
+// API Hooks
+import { useSearchThings } from "../../api/use-thing-api";
+
+// Router
+import { createFileRoute } from "@tanstack/react-router";
+```
+
+## Backend Architecture
+
+### Technology Stack
+- **Runtime**: Node.js with Express 5
+- **Language**: TypeScript with strict mode
+- **API**: tRPC for type-safe endpoints
+- **Database**: PostgreSQL with Drizzle ORM
+- **Authentication**: Auth0 with JWT middleware
+- **Validation**: Zod schemas
+- **Logging**: Winston
+- **Build**: tsup for bundling
+
+### Backend Application Structure (`backend/apps/server/`)
+```
+src/
+├── routers/               # tRPC router definitions
+│   ├── admin-api.router.ts # Admin API endpoints
+│   ├── api.router.ts      # Main API router
+│   └── index.ts           # Router exports
+├── services/              # Business logic layer
+│   ├── thing/             # Thing-related services
+│   └── user/              # User-related services
+├── types/                 # TypeScript type definitions
+│   ├── thing.ts           # Thing-related types
+│   ├── user.ts            # User-related types
+│   └── index.ts           # Type exports
+├── schema/                # Database schema (Drizzle)
+├── util/                  # Utilities
+│   ├── auth/              # Authentication utilities
+│   └── log/               # Logging utilities
+├── config.ts              # Configuration
+├── db.ts                  # Database connection
+└── index.ts               # Application entry point
+```
+
+### API Patterns
+```typescript
+// Router structure
+export const adminApiRouter = router({
+  users: router({
+    get: procedure.input(z.number()).query(async ({ input }) => getUser(input)),
+    search: procedure.input(searchUsersRequestSchema).query(async ({ input }) => searchUsers(input)),
+    create: procedure.input(createUserRequestSchema).mutation(async ({ input }) => createUser(input)),
+    update: procedure.input(updateUserRequestSchema).mutation(async ({ input }) => updateUser(input)),
+  }),
+  things: router({
+    // Similar pattern for things
+  }),
+});
+
+// Service pattern
+export const searchUsers = async (request: SearchUsersRequest) => {
+  // Business logic implementation
+};
+```
+
+## Development Conventions
+
+### Code Style
+- **ESLint**: Vercel style guide with custom configurations
+- **Prettier**: Automatic formatting on save
+- **TypeScript**: Strict mode enabled
+- **Imports**: Use `@repo/` prefix for internal packages
+
+### File Naming
+- **Components**: kebab-case  (e.g., `user-form.tsx`)
+- **Hooks**: kebab-case  with `use` prefix (e.g., `use-search-things.ts`)
+- **Types**: kebab-case (e.g., `some-thing.ts`)
+- **Routes**: kebab-case directories with `index.tsx` files
+
+### Component Patterns
+```typescript
+// Page components
+export const Route = createFileRoute("/things/")({
+  component: Index,
+});
+
+// Form components with React Hook Form
+const ThingForm = () => {
+  const form = useForm<CreateThingRequest>({
+    resolver: zodResolver(createThingRequestSchema),
+  });
+  // Implementation
+};
+
+// Data table components
+const ThingDataTable = ({ data }: { data: Thing[] }) => {
+  // Table implementation with @tanstack/react-table
+};
+```
+
+### API Integration Patterns
+```typescript
+// Query hooks
+export const useSearchThings = (request: SearchThingsRequest) => {
+  const trpc = useTRPC();
+  return useQuery(trpc.things.search.queryOptions(request));
+};
+
+// Mutation hooks with cache invalidation
+export const useCreateThing = () => {
+  const trpc = useTRPC();
+  const queryClient = useQueryClient();
+  return useMutation(
+    trpc.things.create.mutationOptions({
+      onSuccess: () => {
+        queryClient.invalidateQueries(trpc.things.pathFilter());
+      },
+    })
+  );
+};
+```
+
+### Styling Patterns
+```typescript
+// Using cn utility for conditional classes
+className={cn(
+  "base-classes",
+  condition && "conditional-classes",
+  className
+)}
+
+// Dark theme support
+className="bg-gray-900 text-white hover:bg-gray-800"
+```
+
+## Environment and Configuration
+
+### Environment Variables
+- **Frontend**: `config.ts` for client-side configuration
+- **Backend**: `.env` file for server configuration
+- **Auth0**: Domain, client ID, and audience configuration
+
+### Development Commands
+```bash
+# Root level
+npm run dev          # Start all applications
+npm run build        # Build all packages
+npm run lint         # Lint all packages
+
+# Individual packages
+npm run dev          # Start development server
+npm run build        # Build package
+npm run typecheck    # TypeScript type checking
+```
+
+## Database and Schema
+
+### Drizzle ORM
+- **Schema**: Located in `backend/apps/server/src/schema/`
+- **Migrations**: Generated with `drizzle-kit generate`
+- **Types**: Auto-generated from schema
+
+### Database Patterns
+```typescript
+// Schema definition
+export const users = pgTable("users", {
+  id: serial("id").primaryKey(),
+  auth0Id: text("auth0_id").unique().notNull(),
+  email: text("email").notNull(),
+  // ... other fields
+});
+
+// Query patterns
+export const searchUsers = async (request: SearchUsersRequest) => {
+  const query = db.select().from(users);
+  // Implementation with pagination and filtering
+};
+```
+
+## Security and Authentication
+
+### Auth0 Integration
+- **Frontend**: `@auth0/auth0-react` for authentication
+- **Backend**: JWT validation middleware
+- **Permissions**: Role-based access control
+- **Context**: User information available in tRPC context
+
+### Authorization Patterns
+```typescript
+// Backend middleware
+const procedure = baseProcedure.use(async (opts) => {
+  const { ctx } = opts;
+  if (!ctx.auth0Id) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+  if (!ctx.isAdmin) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+  return opts.next(opts);
+});
+```
+
+## Testing and Quality
+
+### Type Safety
+- **Full-stack**: tRPC provides end-to-end type safety
+- **Database**: Drizzle provides type-safe database queries
+- **Forms**: Zod validation with React Hook Form
+
+### Error Handling
+- **Frontend**: React Query error boundaries
+- **Backend**: Winston logging with structured error handling
+- **API**: tRPC error handling with proper error codes
+
+This project follows modern React and Node.js best practices with a focus on type safety, developer experience, and maintainable code architecture.
+
+

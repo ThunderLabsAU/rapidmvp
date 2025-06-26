@@ -27,15 +27,6 @@ export const updateUser = async (request: UpdateUserRequest) => {
     });
   }
 
-  // update the blocked flag in auth0 using the management API
-  await authManagement.users.update(
-    { id: user.auth0Id },
-    {
-      given_name: request.firstName ?? undefined,
-      family_name: request.lastName ?? undefined,
-    }
-  );
-
   const updatedUser = await db
     .update(userTable)
     .set(request)

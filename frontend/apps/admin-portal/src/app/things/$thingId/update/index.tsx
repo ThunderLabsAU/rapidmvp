@@ -5,24 +5,24 @@ import { useThing, useUpdateThing } from "../../../../api/use-thing-api";
 import { PageView } from "../../../../components/common/page-view";
 import { ThingForm } from "../../../../components/things/thing-form";
 
-export const Route = createFileRoute("/things/$id/update/")({
+export const Route = createFileRoute("/things/$thingId/update/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { id } = Route.useParams();
-  const { data: thing, isLoading } = useThing(Number(id));
+  const { thingId } = Route.useParams();
+  const { data: thing, isLoading } = useThing(thingId);
 
   const navigate = useNavigate();
   const { mutateAsync: updateUser, isPending, error } = useUpdateThing();
 
   const onSubmit = async (data: UpdateThingRequest) => {
     await updateUser(data);
-    navigate({ to: "/things/$id", params: { id } });
+    navigate({ to: "/things/$thingId", params: { thingId } });
   };
 
   const onCancel = () => {
-    navigate({ to: "/things/$id", params: { id } });
+    navigate({ to: "/things/$thingId", params: { thingId } });
   };
 
   return (

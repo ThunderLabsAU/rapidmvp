@@ -78,7 +78,7 @@ export const ThingDataTable = ({
           )
         }
         onRowClicked={(row) => {
-          navigate({ to: "/things/$id", params: { id: row.id.toString() } });
+          navigate({ to: "/things/$thingId", params: { thingId: row.id } });
         }}
       />
     </>

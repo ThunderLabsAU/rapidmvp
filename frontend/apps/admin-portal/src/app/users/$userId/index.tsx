@@ -4,13 +4,13 @@ import { useUser } from "../../../api/use-user-api";
 import { PageView } from "../../../components/common/page-view";
 import { UserDetails } from "../../../components/users/user-details";
 
-export const Route = createFileRoute("/users/$id/")({
+export const Route = createFileRoute("/users/$userId/")({
   component: Index,
 });
 
 function Index() {
-  const { id } = Route.useParams();
-  const { data: user, isLoading } = useUser(Number(id));
+  const { userId } = Route.useParams();
+  const { data: user, isLoading } = useUser(userId);
   return (
     <PageView
       title={user?.firstName + " " + user?.lastName}
@@ -19,7 +19,7 @@ function Index() {
         href: "/users",
       }}
       actions={
-        <ButtonLink to="/users/$id/update" params={{ id }}>
+        <ButtonLink to="/users/$userId/update" params={{ userId }}>
           Edit user
         </ButtonLink>
       }

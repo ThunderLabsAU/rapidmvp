@@ -2,15 +2,15 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import { type CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import superjson from "superjson";
 import { z } from "zod";
-import { createThing } from "../services/thing/create-thing";
-import { getThing } from "../services/thing/get-thing";
-import { searchThings } from "../services/thing/search-things";
-import { updateThing } from "../services/thing/update-thing";
-import { createUser } from "../services/user/create-user";
-import { getOrCreateUserByAuth0Id } from "../services/user/get-or-create-user-by-auth0-id copy";
-import { getUser } from "../services/user/get-user";
-import { searchUsers } from "../services/user/search-users";
-import { updateUser } from "../services/user/update-user";
+import { createThing } from "../services/things/create-thing";
+import { getThing } from "../services/things/get-thing";
+import { searchThings } from "../services/things/search-things";
+import { updateThing } from "../services/things/update-thing";
+import { createUser } from "../services/users/create-user";
+import { getOrCreateUserByAuth0Id } from "../services/users/get-or-create-user-by-auth0-id";
+import { getUser } from "../services/users/get-user";
+import { searchUsers } from "../services/users/search-users";
+import { updateUser } from "../services/users/update-user";
 import {
   createThingRequestSchema,
   searchThingsRequestSchema,

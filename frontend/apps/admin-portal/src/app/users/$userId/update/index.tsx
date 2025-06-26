@@ -5,24 +5,24 @@ import { useUpdateUser, useUser } from "../../../../api/use-user-api";
 import { PageView } from "../../../../components/common/page-view";
 import { UserForm } from "../../../../components/users/user-form";
 
-export const Route = createFileRoute("/users/$id/update/")({
+export const Route = createFileRoute("/users/$userId/update/")({
   component: Index,
 });
 
 function Index() {
-  const { id } = Route.useParams();
-  const { data: user, isLoading } = useUser(Number(id));
+  const { userId } = Route.useParams();
+  const { data: user, isLoading } = useUser(userId);
 
   const navigate = useNavigate();
   const { mutateAsync: updateUser, isPending, error } = useUpdateUser();
 
   const onSubmit = async (data: UpdateUserRequest) => {
     await updateUser(data);
-    navigate({ to: "/users/$id", params: { id } });
+    navigate({ to: "/users/$userId", params: { userId } });
   };
 
   const onCancel = () => {
-    navigate({ to: "/users/$id", params: { id } });
+    navigate({ to: "/users/$userId", params: { userId } });
   };
 
   return (

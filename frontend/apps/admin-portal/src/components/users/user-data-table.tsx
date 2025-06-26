@@ -90,7 +90,7 @@ export const UserDataTable = ({
           )
         }
         onRowClicked={(row) => {
-          navigate({ to: "/users/$id", params: { id: row.id.toString() } });
+          navigate({ to: "/users/$userId", params: { userId: row.id } });
         }}
       />
     </>

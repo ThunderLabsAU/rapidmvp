@@ -4,13 +4,13 @@ import { useThing } from "../../../api/use-thing-api";
 import { PageView } from "../../../components/common/page-view";
 import { ThingDetails } from "../../../components/things/thing-details";
 
-export const Route = createFileRoute("/things/$id/")({
+export const Route = createFileRoute("/things/$thingId/")({
   component: Index,
 });
 
 function Index() {
-  const { id } = Route.useParams();
-  const { data: thing, isLoading } = useThing(Number(id));
+  const { thingId } = Route.useParams();
+  const { data: thing, isLoading } = useThing(thingId);
   return (
     <PageView
       title={thing?.name ?? "Thing"}
@@ -19,7 +19,7 @@ function Index() {
         href: "/things",
       }}
       actions={
-        <ButtonLink to="/things/$id/update" params={{ id }}>
+        <ButtonLink to="/things/$thingId/update" params={{ thingId }}>
           Edit thing
         </ButtonLink>
       }
