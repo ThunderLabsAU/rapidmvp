@@ -2,7 +2,7 @@ import { z } from "zod/v4";
 import {
   insertUserSchema,
   updateUserSchema,
-  User,
+  type User,
   userRoles,
   userRoleSchema,
 } from "../schema/user";

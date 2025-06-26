@@ -1,5 +1,4 @@
-import * as React from "react";
-import { cn } from "../../util/cn";
+import { cn } from "../../lib/utils";
 
 export const Spinner = ({ className }: { className?: string }) => {
   return (

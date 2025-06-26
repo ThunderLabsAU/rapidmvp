@@ -1,5 +1,5 @@
 import { initTRPC, TRPCError } from "@trpc/server";
-import { CreateExpressContextOptions } from "@trpc/server/adapters/express";
+import { type CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import superjson from "superjson";
 import { z } from "zod";
 import { createThing } from "../services/thing/create-thing";
@@ -20,7 +20,7 @@ import {
   createUserRequestSchema,
   searchUsersRequestSchema,
   updateUserRequestSchema,
-  User,
+  type User,
 } from "../types/user";
 import { getAuth0Id, getPermissions } from "../util/auth/auth.middleware";
 

@@ -1,7 +1,7 @@
 import { and, asc, eq } from "drizzle-orm";
-import { Thing, thingTable } from "../../schema";
-import { Page } from "../../types/page";
-import { SearchThingsRequest } from "../../types/thing";
+import { type Thing, thingTable } from "../../schema";
+import { type Page } from "../../types/page";
+import { type SearchThingsRequest } from "../../types/thing";
 import { keywordSearch } from "../../util/db/keyword-search";
 import { paginatedQuery } from "../../util/db/paginated-query";
 import { createLogger } from "../../util/log/logger";

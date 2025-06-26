@@ -1,4 +1,2 @@
 @import "tailwindcss";
-@import "@repo/ui-kit/theme.css";
-
-@source "../../../packages/ui-kit/src/**/*.tsx";
+@import "@repo/ui-kit/globals.css";

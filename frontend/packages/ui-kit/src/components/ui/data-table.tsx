@@ -1,13 +1,11 @@
 "use client";
 
-import * as React from "react";
-
 import {
-  ColumnDef,
+  type ColumnDef,
   flexRender,
   getCoreRowModel,
-  PaginationState,
-  SortingState,
+  type PaginationState,
+  type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
 

@@ -117,3 +117,5 @@
     @apply bg-background text-foreground;
   }
 }
+
+@source "../**/*.{js,ts,jsx,tsx}";

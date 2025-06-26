@@ -1,6 +1,6 @@
 import { Button } from "@repo/ui-kit/components/ui/button";
 import { Spinner } from "@repo/ui-kit/components/ui/spinner";
-import { cn } from "@repo/ui-kit/util/cn";
+import { cn } from "@repo/ui-kit/lib/utils";
 import { Link, type LinkProps } from "@tanstack/react-router";
 import { ArrowLeftIcon } from "lucide-react";
 import type { PropsWithChildren, ReactNode } from "react";
@@ -43,7 +43,6 @@ export const PageView = ({
           </Link>
         </Button>
       )}
-
       <div
         className={cn(
           "flex justify-between items-center mt-2 h-14",

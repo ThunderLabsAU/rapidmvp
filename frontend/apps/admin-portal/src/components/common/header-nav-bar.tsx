@@ -30,8 +30,8 @@ export const HeaderNavBar = () => {
 
           <NavigationMenu>
             <NavigationMenuList>
-              <NavItem to="/users">Users</NavItem>
               <NavItem to="/things">Things</NavItem>
+              <NavItem to="/users">Users</NavItem>
             </NavigationMenuList>
           </NavigationMenu>
         </div>

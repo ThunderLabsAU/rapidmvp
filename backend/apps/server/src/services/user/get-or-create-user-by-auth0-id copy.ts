@@ -1,9 +1,9 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../db";
 import { userTable } from "../../schema/user";
+import { type User } from "../../types/user";
 import { authManagement } from "../../util/auth/auth-management";
 import { createLogger } from "../../util/log/logger";
-import { User } from "../../types/user";
 
 const logger = createLogger("user.get-or-create-user-by-auth0-id");
 

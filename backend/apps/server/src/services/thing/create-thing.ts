@@ -1,6 +1,6 @@
 import { db } from "../../db";
-import { Thing, thingTable } from "../../schema";
-import { CreateThingRequest } from "../../types/thing";
+import { type Thing, thingTable } from "../../schema";
+import { type CreateThingRequest } from "../../types/thing";
 import { createLogger } from "../../util/log/logger";
 
 const logger = createLogger("thing.create");

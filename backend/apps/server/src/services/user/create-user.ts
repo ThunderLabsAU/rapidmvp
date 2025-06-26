@@ -1,6 +1,6 @@
 import { db } from "../../db";
 import { userTable } from "../../schema/user";
-import { CreateUserRequest } from "../../types";
+import { type CreateUserRequest } from "../../types";
 import { authManagement } from "../../util/auth/auth-management";
 import { createLogger } from "../../util/log/logger";
 

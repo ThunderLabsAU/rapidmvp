@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../db";
-import { Thing, thingTable } from "../../schema";
-import { UpdateThingRequest } from "../../types/thing";
+import { type Thing, thingTable } from "../../schema";
+import { type UpdateThingRequest } from "../../types/thing";
 import { createLogger } from "../../util/log/logger";
 
 const logger = createLogger("thing.update");

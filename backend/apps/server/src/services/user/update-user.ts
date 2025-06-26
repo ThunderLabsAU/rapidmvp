@@ -2,9 +2,9 @@ import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import { db } from "../../db";
 import { userTable } from "../../schema/user";
+import { type UpdateUserRequest } from "../../types/user";
 import { authManagement } from "../../util/auth/auth-management";
 import { createLogger } from "../../util/log/logger";
-import { UpdateUserRequest } from "../../types/user";
 
 const logger = createLogger("user.update-user");
 

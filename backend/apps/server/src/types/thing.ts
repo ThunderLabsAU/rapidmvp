@@ -1,8 +1,8 @@
 import { z } from "zod/v4";
 import {
   insertThingSchema,
-  Thing,
-  ThingType,
+  type Thing,
+  type ThingType,
   thingTypes,
   thingTypeSchema,
   updateThingSchema,

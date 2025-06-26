@@ -1,5 +1,5 @@
 // auth.middleware.ts
-import { Request } from "express";
+import { type Request } from "express";
 import { auth } from "express-oauth2-jwt-bearer";
 import { config } from "../../config";
 
