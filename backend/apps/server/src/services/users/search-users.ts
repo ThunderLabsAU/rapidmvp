@@ -1,23 +1,41 @@
-import { and, asc, eq } from "drizzle-orm";
-import { type User, userTable } from "../../schema";
-import { type Page } from "../../types/page";
+import { and, asc, count, eq } from "drizzle-orm";
+import { db, DEFAULT_PAGE_SIZE } from "../../db";
+import { userTable } from "../../schema";
 import { type SearchUsersRequest } from "../../types/user";
 import { keywordSearch } from "../../util/db/keyword-search";
-import { paginatedQuery } from "../../util/db/paginated-query";
+import { orderBy } from "../../util/db/order-by";
 
 export const searchUsers = async (request: SearchUsersRequest) => {
-  const result = await paginatedQuery(
-    userTable,
-    request,
-    and(
-      request.role ? eq(userTable.role, request.role) : undefined,
-      keywordSearch(request.keywords, [
-        userTable.email,
-        userTable.firstName,
-        userTable.lastName,
-      ])
-    ),
-    asc(userTable.lastName)
+  const { pageSize = DEFAULT_PAGE_SIZE, pageIndex = 0 } = request;
+
+  const whereClause = and(
+    request.role ? eq(userTable.role, request.role) : undefined,
+    keywordSearch(request.keywords, [
+      userTable.email,
+      userTable.firstName,
+      userTable.lastName,
+    ])
   );
-  return result as Page<User>;
+
+  const dataQuery = db
+    .select()
+    .from(userTable)
+    .where(whereClause)
+    .orderBy(...orderBy(request, userTable, asc(userTable.lastName)))
+    .limit(pageSize)
+    .offset(pageIndex * pageSize);
+
+  const countQuery = db
+    .select({ count: count() })
+    .from(userTable)
+    .where(whereClause);
+
+  const [data, [countResult]] = await Promise.all([dataQuery, countQuery]);
+
+  return {
+    data,
+    total: countResult.count,
+    pageIndex,
+    pageSize,
+  };
 };

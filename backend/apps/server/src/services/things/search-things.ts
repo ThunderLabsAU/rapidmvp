@@ -1,27 +1,41 @@
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, count, eq } from "drizzle-orm";
+import { db, DEFAULT_PAGE_SIZE } from "../../db";
 import { type Thing, thingTable } from "../../schema";
 import { type Page } from "../../types/page";
 import { type SearchThingsRequest } from "../../types/thing";
 import { keywordSearch } from "../../util/db/keyword-search";
-import { paginatedQuery } from "../../util/db/paginated-query";
+import { orderBy } from "../../util/db/order-by";
 import { createLogger } from "../../util/log/logger";
-
-const logger = createLogger("thing.search");
 
 export const searchThings = async (
   request: SearchThingsRequest
 ): Promise<Page<Thing>> => {
-  const result = await paginatedQuery(
-    thingTable,
-    request,
-    and(
-      request.type ? eq(thingTable.type, request.type) : undefined,
-      keywordSearch(request.keywords, [thingTable.name, thingTable.description])
-    ),
-    asc(thingTable.name)
+  const { pageSize = DEFAULT_PAGE_SIZE, pageIndex = 0 } = request;
+
+  const whereClause = and(
+    request.type ? eq(thingTable.type, request.type) : undefined,
+    keywordSearch(request.keywords, [thingTable.name, thingTable.description])
   );
-  logger.debug(`Found ${result.total} things matching request`, {
-    request,
-  });
-  return result as Page<Thing>;
+
+  const dataQuery = db
+    .select()
+    .from(thingTable)
+    .where(whereClause)
+    .orderBy(...orderBy(request, thingTable, asc(thingTable.name)))
+    .limit(pageSize)
+    .offset(pageIndex * pageSize);
+
+  const countQuery = db
+    .select({ count: count() })
+    .from(thingTable)
+    .where(whereClause);
+
+  const [data, [countResult]] = await Promise.all([dataQuery, countQuery]);
+
+  return {
+    data,
+    total: countResult.count,
+    pageIndex,
+    pageSize,
+  };
 };

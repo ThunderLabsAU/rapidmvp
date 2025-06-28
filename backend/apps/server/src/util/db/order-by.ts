@@ -5,13 +5,17 @@ import { asc, desc } from "drizzle-orm/sql/expressions";
 import type { SortBy } from "../../types/sort";
 
 export const orderBy = (
+  {
+    sortBy,
+  }: {
+    sortBy?: SortBy[];
+  },
   table: PgTable<any>,
-  sortBy: SortBy[] | undefined | null
-): SQL[] => {
+  defaultOrderBy?: SQL
+) => {
   if (!sortBy) {
-    return [];
+    return defaultOrderBy ? [defaultOrderBy] : [];
   }
-
   return sortBy.map(({ column, direction }) => {
     const columnRef = table[column as keyof typeof table] as PgColumn;
     return direction === "desc" ? desc(columnRef) : asc(columnRef);
