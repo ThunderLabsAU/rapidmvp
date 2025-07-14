@@ -20,6 +20,7 @@ import {
 } from "./table";
 
 import { Skeleton } from "./skeleton";
+
 interface DataTableProps<TData, TValue> {
   isLoading: boolean;
   columns: ColumnDef<TData, TValue>[];

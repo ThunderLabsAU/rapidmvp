@@ -12,7 +12,3 @@ export const authMiddleware = auth({
 export const getAuth0Id = (req: Request) => {
   return req.auth?.payload?.sub || null;
 };
-
-export const getPermissions = (req: Request) => {
-  return (req.auth?.payload?.permissions || []) as string[];
-};

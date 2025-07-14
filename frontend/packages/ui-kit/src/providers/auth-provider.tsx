@@ -22,6 +22,10 @@ export const AuthProvider = ({
         audience: audience,
         redirect_uri: window.location.origin,
       }}
+      onRedirectCallback={(appState) => {
+        const returnTo = appState?.returnTo || window.location.pathname;
+        window.history.replaceState({}, document.title, returnTo);
+      }}
     >
       {children}
     </Auth0Provider>

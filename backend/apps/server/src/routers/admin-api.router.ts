@@ -22,7 +22,7 @@ import {
   updateUserRequestSchema,
   type User,
 } from "../types/user";
-import { getAuth0Id, getPermissions } from "../util/auth/auth.middleware";
+import { getAuth0Id } from "../util/auth/auth.middleware";
 
 interface AdminRequestContext extends CreateExpressContextOptions {
   auth0Id: string | null;
@@ -34,8 +34,6 @@ export const createAdminRequestContext = async (
   ctx: CreateExpressContextOptions
 ): Promise<AdminRequestContext> => {
   const auth0Id = getAuth0Id(ctx.req);
-  const permissions = getPermissions(ctx.req);
-  const isAdmin = permissions.includes("admin");
   let user: User | null = null;
   if (auth0Id) {
     user = await getOrCreateUserByAuth0Id(auth0Id);
@@ -44,7 +42,7 @@ export const createAdminRequestContext = async (
     ...ctx,
     auth0Id,
     user,
-    isAdmin,
+    isAdmin: user?.role === "admin",
   };
 };
 
