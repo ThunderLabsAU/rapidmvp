@@ -3,7 +3,6 @@ import { migrate } from "drizzle-orm/postgres-js/migrator";
 import postgres from "postgres";
 import { config } from "./config";
 import * as schema from "./schema/index";
-import fs from "fs";
 
 const { username, password, host, port, database, ssl } = config.db;
 
@@ -14,12 +13,7 @@ const connection = postgres({
   database,
   port,
   max: 10,
-  ssl: ssl
-    ? {
-        rejectUnauthorized: true,
-        ca: fs.readFileSync("./rds.pem").toString(),
-      }
-    : undefined,
+  ssl: ssl,
 });
 
 export type DbType = ReturnType<typeof drizzle<typeof schema>>;

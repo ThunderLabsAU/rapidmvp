@@ -1,11 +1,11 @@
 {
-  "name": "@repo/admin-portal",
+  "name": "@frontend/admin-portal",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build && tsc -b",
     "lint": "eslint .",
     "preview": "vite preview"
   },

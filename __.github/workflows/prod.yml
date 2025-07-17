@@ -1,0 +1,18 @@
+name: Build and Deploy (Production)
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build_and_deploy:
+    uses: ./.github/workflows/_ci.yml
+    with:
+      environment: "production"
+      AZURE_SERVER_APP_NAME: app-treadlightly-sct-server
+    secrets:
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AZURE_ADMIN_PORTAL_DEPLOY_TOKEN: ${{ secrets.AZURE_ADMIN_PORTAL_DEPLOY_TOKEN }}
+      AZURE_CLIENT_PORTAL_DEPLOY_TOKEN: ${{ secrets.AZURE_CLIENT_PORTAL_DEPLOY_TOKEN }}

@@ -1,0 +1,18 @@
+name: Build and Deploy (Staging)
+
+on:
+  push:
+    branches: ["staging"]
+
+jobs:
+  build_and_deploy:
+    uses: ./.github/workflows/_ci.yml
+    with:
+      environment: "staging"
+      AZURE_SERVER_APP_NAME: app-treadlightly-sct-server-staging
+    secrets:
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AZURE_ADMIN_PORTAL_DEPLOY_TOKEN: ${{ secrets.AZURE_STAGING_ADMIN_PORTAL_DEPLOY_TOKEN }}
+      AZURE_CLIENT_PORTAL_DEPLOY_TOKEN: ${{ secrets.AZURE_STAGING_CLIENT_PORTAL_DEPLOY_TOKEN }}
