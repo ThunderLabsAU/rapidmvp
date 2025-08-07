@@ -4,11 +4,17 @@
   "private": true,
   "packageManager": "npm@11.4.2",
   "scripts": {
+    "start": "node backend/apps/server/dist/index.js",
     "build": "turbo build",
     "lint": "turbo lint",
-    "dev": "turbo dev",
+    "dev": "npm run docker:up && turbo dev",
+    "dev:no-docker": "turbo dev",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:reset": "docker compose down -v && docker compose up -d",
     "build:frontends": "turbo run build --filter=@frontend/*",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
   },
   "workspaces": [
     "backend/apps/*",
