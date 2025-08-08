@@ -3,18 +3,18 @@
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: treadlightly-db
+    container_name: rapidmvp-db
     environment:
-      POSTGRES_USER: ${DB_USERNAME:-treadlightly-sct}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-treadlightly-sct}
-      POSTGRES_DB: ${DB_DATABASE:-treadlightly-sct}
+      POSTGRES_USER: ${DB_USERNAME:-rapidmvp-sct}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-rapidmvp-sct}
+      POSTGRES_DB: ${DB_DATABASE:-rapidmvp-sct}
     ports:
       - "${DB_PORT:-5432}:5432"
     volumes:
       - ./database/data:/var/lib/postgresql/data
       - ./database/init:/docker-entrypoint-initdb.d
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U \"${DB_USERNAME:-treadlightly-sct}\""]
+      test: ["CMD-SHELL", "pg_isready -U \"${DB_USERNAME:-rapidmvp-sct}\""]
       interval: 10s
       timeout: 5s
       retries: 5
