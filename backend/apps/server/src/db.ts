@@ -2,7 +2,7 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
 import postgres from "postgres";
 import { config } from "./config";
-import * as schema from "./schema/index";
+import * as schema from "./model/db";
 
 const { username, password, host, port, database, ssl } = config.db;
 

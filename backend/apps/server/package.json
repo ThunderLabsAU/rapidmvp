@@ -9,13 +9,13 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint src/",
     "start": "node dist/index.js",
-    "dev": "tsup --watch --onSuccess \"node --env-file=.env dist/index.js\"",
+    "dev": "tsup --watch --onSuccess \"node --enable-source-maps --env-file=.env dist/index.js\"",
     "build": "tsup",
     "clean": "rm -rf dist"
   },
   "exports": {
     "./api": "./src/routers/index.ts",
-    "./types": "./src/types/index.ts"
+    "./types": "./src/model/types/index.ts"
   },
   "dependencies": {
     "@trpc/server": "^11.4.1",

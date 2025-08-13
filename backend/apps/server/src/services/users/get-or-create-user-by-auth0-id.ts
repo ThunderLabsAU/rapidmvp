@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../db";
-import { userTable } from "../../schema/user";
-import { type User } from "../../types/user";
+import { userTable } from "../../model/db";
+import { type User } from "../../model/types";
 import { authManagement } from "../../util/auth/auth-management";
 import { createLogger } from "../../util/log/logger";
 

@@ -5,8 +5,8 @@ import {
   type User,
   userRoles,
   userRoleSchema,
-} from "../schema/user";
-import { keywordSearchRequestSchema } from "./search";
+} from "../db/user";
+import { keywordSearchRequestSchema } from "./common/search";
 
 export { userRoles };
 export type { User };

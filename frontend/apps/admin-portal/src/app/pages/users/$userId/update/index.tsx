@@ -1,7 +1,7 @@
 import type { UpdateUserRequest } from "@repo/server/types";
 import { Card, CardContent } from "@repo/ui-kit/components/ui/card";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useUpdateUser, useUser } from "../../../../api/use-user-api";
+import { useUpdateUser, useUser } from "../../../../../api/use-user-api";
 import { PageView } from "../../../../components/common/page-view";
 import { UserForm } from "../../../../components/users/user-form";
 

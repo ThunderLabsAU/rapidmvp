@@ -1,7 +1,7 @@
 import type { CreateThingRequest } from "@repo/server/types";
 import { Card, CardContent } from "@repo/ui-kit/components/ui/card";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useCreateThing } from "../../../api/use-thing-api";
+import { useCreateThing } from "../../../../api/use-thing-api";
 import { PageView } from "../../../components/common/page-view";
 import { ThingForm } from "../../../components/things/thing-form";
 

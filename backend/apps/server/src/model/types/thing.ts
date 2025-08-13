@@ -6,8 +6,8 @@ import {
   thingTypes,
   thingTypeSchema,
   updateThingSchema,
-} from "../schema/thing";
-import { keywordSearchRequestSchema } from "./search";
+} from "../db/thing";
+import { keywordSearchRequestSchema } from "./common/search";
 
 export { thingTypes };
 export type { Thing, ThingType };

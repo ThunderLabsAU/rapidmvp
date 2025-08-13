@@ -1,7 +1,7 @@
 import { and, asc, count, eq } from "drizzle-orm";
 import { db, DEFAULT_PAGE_SIZE } from "../../db";
-import { userTable } from "../../schema";
-import { type SearchUsersRequest } from "../../types/user";
+import { userTable } from "../../model/db";
+import { type SearchUsersRequest } from "../../model/types";
 import { keywordSearch } from "../../util/db/keyword-search";
 import { orderBy } from "../../util/db/order-by";
 

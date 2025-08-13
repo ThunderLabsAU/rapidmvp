@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../db";
-import { userTable } from "../../schema/user";
+import { userTable } from "../../model/db";
 import { createLogger } from "../../util/log/logger";
 
 const logger = createLogger("user.get-user");

@@ -1,6 +1,6 @@
 import { ButtonLink } from "@repo/ui-kit/components/ui/button-link";
 import { createFileRoute } from "@tanstack/react-router";
-import { useUser } from "../../../api/use-user-api";
+import { useUser } from "../../../../api/use-user-api";
 import { PageView } from "../../../components/common/page-view";
 import { UserDetails } from "../../../components/users/user-details";
 

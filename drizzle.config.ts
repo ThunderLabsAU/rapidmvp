@@ -12,7 +12,7 @@ const password = process.env.DB_PASSWORD;
 
 export default defineConfig({
   out: "./backend/apps/server/migrations",
-  schema: "./backend/apps/server/src/schema/index.ts",
+  schema: "./backend/apps/server/src/model/db/index.ts",
   dialect: "postgresql",
   dbCredentials: {
     url: `postgres://${username}:${password}@${host}:${port}/${db}`,

@@ -1,8 +1,8 @@
 import { and, asc, count, eq } from "drizzle-orm";
 import { db, DEFAULT_PAGE_SIZE } from "../../db";
-import { type Thing, thingTable } from "../../schema";
-import { type Page } from "../../types/page";
-import { type SearchThingsRequest } from "../../types/thing";
+import { type Thing, thingTable } from "../../model/db";
+import { type Page } from "../../model/types";
+import { type SearchThingsRequest } from "../../model/types";
 import { keywordSearch } from "../../util/db/keyword-search";
 import { orderBy } from "../../util/db/order-by";
 import { createLogger } from "../../util/log/logger";

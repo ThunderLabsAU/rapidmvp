@@ -3,7 +3,7 @@ import { ButtonLink } from "@repo/ui-kit/components/ui/button-link";
 import { Card, CardContent } from "@repo/ui-kit/components/ui/card";
 import { useSearchRequest } from "@repo/ui-kit/hooks/use-search-request";
 import { createFileRoute } from "@tanstack/react-router";
-import { useSearchUsers } from "../../api/use-user-api";
+import { useSearchUsers } from "../../../api/use-user-api";
 import { PageView } from "../../components/common/page-view";
 import { UserDataTable } from "../../components/users/user-data-table";
 import { UserFilter } from "../../components/users/user-filter";

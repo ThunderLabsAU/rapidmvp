@@ -2,6 +2,15 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import { type CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import superjson from "superjson";
 import { z } from "zod";
+import {
+  createThingRequestSchema,
+  createUserRequestSchema,
+  searchThingsRequestSchema,
+  searchUsersRequestSchema,
+  updateThingRequestSchema,
+  updateUserRequestSchema,
+  type User,
+} from "../model/types";
 import { createThing } from "../services/things/create-thing";
 import { getThing } from "../services/things/get-thing";
 import { searchThings } from "../services/things/search-things";
@@ -11,17 +20,6 @@ import { getOrCreateUserByAuth0Id } from "../services/users/get-or-create-user-b
 import { getUser } from "../services/users/get-user";
 import { searchUsers } from "../services/users/search-users";
 import { updateUser } from "../services/users/update-user";
-import {
-  createThingRequestSchema,
-  searchThingsRequestSchema,
-  updateThingRequestSchema,
-} from "../types/thing";
-import {
-  createUserRequestSchema,
-  searchUsersRequestSchema,
-  updateUserRequestSchema,
-  type User,
-} from "../types/user";
 import { getAuth0Id } from "../util/auth/auth.middleware";
 
 interface AdminRequestContext extends CreateExpressContextOptions {

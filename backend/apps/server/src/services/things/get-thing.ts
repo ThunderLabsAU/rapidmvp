@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../db";
-import { type Thing, thingTable } from "../../schema";
+import { type Thing, thingTable } from "../../model/db";
 
 export const getThing = async (id: number): Promise<Thing> => {
   const [thing] = await db

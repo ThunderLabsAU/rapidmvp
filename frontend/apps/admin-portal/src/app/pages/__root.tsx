@@ -1,7 +1,6 @@
 import { ProtectedRoute } from "@repo/ui-kit/components/auth/protetected-route";
 import { Toaster } from "@repo/ui-kit/components/ui/sonner";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { HeaderNavBar } from "../components/common/header-nav-bar";
 
 export const Route = createRootRoute({
@@ -19,9 +18,7 @@ export const Route = createRootRoute({
             },
           }}
         />
-        <TanStackRouterDevtools />
       </div>
-      <TanStackRouterDevtools />
     </ProtectedRoute>
   ),
 });
